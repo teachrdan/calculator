@@ -9,9 +9,9 @@ var function = calculator(str) {
 	var equation = str.split(/[\s,]+/).join('');
 	// create resultStorage, set to null
 	var resultStorage = null;
-	// create runningTotal, set to null
+	// create runningTotal to track running totals of ongoing * or / operations
 	var runningTotal = null;
-	// create runningNext, set to null
+	// create runningNext to track the next value to be calculated with runningTotal
 	var runningNext = null;
 	// create runningOperator, set to null
 	var runningOperator = null;
@@ -33,20 +33,28 @@ var function = calculator(str) {
 		return -1;
 	}
 
-	// create function math, which takes the current evaluated string position
-	var math = function(strPos) {
+	// create function math
+	var math = function() {
 		// if runningTotal is not null
+		if (runningTotal) {
 			// set temp to runningTotal calculated with runningOperator and runningNext
-			// if next character in string is * or /
-				// runningTotal is temp
-			// else, if resultStorage is null, set it to temp
-			// else, if resultStorage is not null
-				// resultStorage set to resultStorage calculated with operator and runningTotal
+			// if next character in string is NOT * or /
+				// if no runningOperator, set resultStorage to temp
+				// else, calculate resultStorage with runningOperator and temp
+		}
+		// if resultStorage is null, set it to nextVal
+		if (!resultStorage) {
+			resultStorage = parseInt(nextVal);
+		}
+		// else, if resultStorage is not null
+		else {
+			// resultStorage set to resultStorage calculated with operator and runningTotal
+		}
 	};
 
 	// create for loop that iterates over each character in equation
 	var (for i = 0; i < str.length; i++) {
-		var currChar = currChar;
+		var currChar = str[i];
 		// BASE CASE: if character is the last character in string
 		if (i === str.length - 1) {
 			// if last character is an operator, return error
@@ -68,8 +76,7 @@ var function = calculator(str) {
 
 		// if character is number
 		if (typeof currChar === 'number') {
-			// check if operator is null
-				// if so, add character to nextVal
+			nextVal = nextVal + currChar;
 		}
 		// if character is not in operatorObject, return error
 		if (!operators[currChar]) {
@@ -78,6 +85,7 @@ var function = calculator(str) {
 		// if character is an operator
 		else {
 			// do math here
+			operator = currChar;
 		}
 	};
 
